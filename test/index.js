@@ -32,7 +32,7 @@ describe("Remove static: ", function() {
 
     it("find() should not return soft deleted documents.", function(done) {
         Test.remove({ _id: test._id }, function(err) {
-            Test.find({name: 'test'}, function(err, test) {
+            Test.find(function(err, test) {
 
             	should.not.exist(err);
             	test.should.be.instanceof(Array).and.have.lengthOf(0);

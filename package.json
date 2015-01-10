@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/rolandnsharp/mongoose-soft-delete/issues"
   },
-  "homepage": "https://github.com/rolandnsharp/mongoose-soft-delete"
+  "homepage": "https://github.com/rolandnsharp/mongoose-soft-delete",
+  "dependencies": {
+    "hooks": "^0.3.2",
+    "lodash": "^2.4.1",
+    "mongoose": "^3.8.21"
+  }
 }

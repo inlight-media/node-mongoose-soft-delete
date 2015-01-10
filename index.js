@@ -13,11 +13,11 @@ mongoose.Model.hook('query', function (query, cb) {
 });
 
 mongoose.Query.prototype.exec = _.wrap(mongoose.Query.prototype.exec, function (exec) {
-    console.log("wrapped exec method executing..");
+    // console.log("wrapped exec method executing..");
     var self = this;
     var args = arguments;
     this.model.prototype.query(this, function(){
-        console.log("working after pre query call back");
+        // console.log("working after pre query call back");
         return exec.apply(self, [].slice.call(args, 1));
     });
 });
@@ -40,17 +40,14 @@ _.each(['find', 'findOne', 'count'], function (method) {
 module.exports = function(schema, options) {
 
     schema.add({
-        deleted: Boolean
-    });
-
-    schema.add({
+        deleted: Boolean,
         deletedAt: {
             type: Date
         }
     });
 
-    schema.pre('query', function(next) {
-       console.log('xxx');
+    // what is this first argument 'something' ?
+    schema.pre('query', function(something, query, next) {
         query.where({deleted: false});
         next();
     });
@@ -62,10 +59,14 @@ module.exports = function(schema, options) {
         next();
     });
 
-    schema.statics.hardRemove = function(callback) {
+    schema.statics.hardRemove = function(conditions, callback) {
+        // console.log('hardRemove arguments', arguments);
+        //@TODO handle no conditions case/ one argument.
+
         // mirror mongoose .remove
         // https://github.com/LearnBoost/mongoose/blob/master/lib/model.js#L630
 
+        //@NOTE am I removing a whole collection here?
         this.collection.remove(function(err) {
             if (err) {
                 callback(err);
@@ -76,7 +77,6 @@ module.exports = function(schema, options) {
     };
 
     schema.statics.remove = function(conditions, callback) {
-        console.log(conditions, callback);
 
         var update = {
             deleted: true,
@@ -86,7 +86,6 @@ module.exports = function(schema, options) {
         this.update({
             _id: conditions._id
         }, update, function(err, numberAffected) {
-            console.log(err, numberAffected);
             if (err) {
                 return callback(err);
             }
@@ -95,6 +94,21 @@ module.exports = function(schema, options) {
             }
             callback(null, {});
         });
+    };
+
+    // @TODO test methods
+    schema.methods.remove = function (first, second) {
+        var callback = typeof first === 'function' ? first : second,
+            deletedBy = second !== undefined ? first : null;
+
+        if (typeof callback !== 'function') {
+            throw ('Wrong arguments!');
+        }
+
+        this.deleted = true;
+        this.deletedAt = new Date();
+
+        this.save(callback);
     };
 
 };

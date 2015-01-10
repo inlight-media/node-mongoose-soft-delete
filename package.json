@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test node node_modules/nodemon/bin/nodemon.js node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,11 @@
     "hooks": "^0.3.2",
     "lodash": "^2.4.1",
     "mongoose": "^3.8.21"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "nodemon": "^1.2.1",
+    "should": "^4.4.4",
+    "supertest": "^0.15.0"
   }
 }

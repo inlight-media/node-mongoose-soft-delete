@@ -5,7 +5,7 @@ var fixtures = require('./lib/fixtures');
 var helper = require('./lib/helper');
 var mongoose = require('mongoose');
 
-describe("Remove static: ", function() {
+describe("Statics: ", function() {
 
     var test = fixtures.test;
 
@@ -17,7 +17,16 @@ describe("Remove static: ", function() {
         });
     });
 
-    it("should set deleted to true.", function(done) {
+    it("find() should return an array of all non soft deleted documents", function(done) {
+       Test.find(function(err, res) {
+           should.not.exist(err);
+           res.should.be.instanceof(Array).and.have.lengthOf(1);
+           done();
+
+       });
+   });
+
+    it("remove() should set deleted to true.", function(done) {
         Test.remove({ _id: test._id }, function(err) {
             should.not.exist(err);
             Test.findById(test._id, function(err, test) {
@@ -41,7 +50,7 @@ describe("Remove static: ", function() {
         });
     });
 
-    it("hardRemove should delete the document.", function(done) {
+    it("hardRemove() should remove the document from the database.", function(done) {
         Test.hardRemove({ _id: test._id }, function(err) {
 
             should.not.exist(err);

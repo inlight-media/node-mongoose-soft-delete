@@ -54,7 +54,8 @@ module.exports = function(schema, options) {
         next();
     });
 
-    schema.pre('save', function(next) {
+    schema.pre('save', function(next, thing) {
+        // console.log(this.constructor);
         if (!this.deleted) {
             this.deleted = false;
         }
@@ -94,23 +95,24 @@ module.exports = function(schema, options) {
             if (numberAffected === 0) {
                 return callback('Wrong arguments!');
             }
-            callback(null, {});
+            callback(null);
+
         });
     };
 
     // @TODO test methods
-    schema.methods.remove = function (first, second) {
-        var callback = typeof first === 'function' ? first : second,
-            deletedBy = second !== undefined ? first : null;
+    // schema.methods.remove = function (first, second) {
+    //     var callback = typeof first === 'function' ? first : second,
+    //         deletedBy = second !== undefined ? first : null;
 
-        if (typeof callback !== 'function') {
-            throw ('Wrong arguments!');
-        }
+    //     if (typeof callback !== 'function') {
+    //         throw ('Wrong arguments!');
+    //     }
 
-        this.deleted = true;
-        this.deletedAt = new Date();
+    //     this.deleted = true;
+    //     this.deletedAt = new Date();
 
-        this.save(callback);
-    };
+    //     this.save(callback);
+    // };
 
 };

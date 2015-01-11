@@ -9,12 +9,17 @@ describe("remove(); ", function() {
 
     var test = fixtures.test.default;
 
-    xit("Should remove all documents.", function(done) {
+    it("Should remove all documents.", function(done) {
         Test.find(function(err, doc) {
-
             Test.remove(function(err) {
                 should.not.exist(err);
-                done();
+                Test.find(function(err, tests) {
+
+                    should.not.exist(err);
+                    tests.should.be.instanceof(Array).and.have.lengthOf(0);
+
+                    done();
+                });
             });
 
         });
@@ -26,7 +31,7 @@ describe("remove(); ", function() {
         }, function(err) {
             should.not.exist(err);
             Test.findById(test._id, function(err, test) {
-
+                // findById is still returning deleted documents.
                 test.deleted.should.be.true;
                 should.exist(test.deletedAt);
 

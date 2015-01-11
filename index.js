@@ -79,16 +79,30 @@ module.exports = function(schema, options) {
         });
     };
 
-    schema.statics.remove = function(conditions, callback) {
+    schema.statics.remove = function(first, second) {
+        var callback;
+        var conditions;
+
+        if(typeof first === 'function') {
+            callback = first;
+            conditions = {};
+        } else {
+            callback = second;
+            conditions = {
+                _id: first._id
+            };
+        }
+
+        if (typeof callback !== 'function') {
+            throw ('Wrong arguments!');
+        }
 
         var update = {
             deleted: true,
             deletedAt: new Date()
         };
 
-        this.update({
-            _id: conditions._id
-        }, update, function(err, numberAffected) {
+        this.update(conditions, update, function(err, numberAffected) {
             if (err) {
                 return callback(err);
             }

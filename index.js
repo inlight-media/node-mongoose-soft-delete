@@ -3,6 +3,8 @@ var schema = mongoose.schema;
 var _ = require('lodash');
 var hooks = require('hooks');
 
+// the pre query hook was lifted from: https://github.com/LearnBoost/mongoose/issues/1252
+
 for (var k in hooks) {
     mongoose.Model.prototype[k] = mongoose.Model[k] = hooks[k];
 }
@@ -48,7 +50,7 @@ module.exports = function(schema, options) {
 
     // what is this first argument 'something' ?
     schema.pre('query', function(something, query, next) {
-        query.where({deleted: false});
+        query.where({ deleted: { '$ne': true } });
         next();
     });
 

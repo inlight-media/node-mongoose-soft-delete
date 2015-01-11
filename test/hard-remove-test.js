@@ -2,7 +2,6 @@ var _ = require('lodash');
 var should = require('should');
 var Test = require('./lib/model');
 var fixtures = require('./lib/fixtures');
-var helper = require('./lib/helper');
 var mongoose = require('mongoose');
 
 describe("hardRemove(); ", function() {

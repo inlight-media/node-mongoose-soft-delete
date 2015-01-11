@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test node node_modules/nodemon/bin/nodemon.js node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/index.js"
+    "test": "NODE_ENV=test node node_modules/nodemon/bin/nodemon.js node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "mocha": "^2.0.1",
+    "mongoose-fixtures": "0.0.1",
     "nodemon": "^1.2.1",
     "should": "^4.4.4",
     "supertest": "^0.15.0"

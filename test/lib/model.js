@@ -12,4 +12,4 @@ var schema = new Schema({
 
 schema.plugin(mongooseSoftDelete);
 
-module.exports = mongoose.model('Test', schema);
+module.exports = mongoose.model('test', schema);

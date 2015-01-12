@@ -25,7 +25,7 @@ mongoose.Query.prototype.exec = _.wrap(mongoose.Query.prototype.exec, function (
 });
 
 //add any other methods you want to have pre query access
-_.each(['find', 'findOne', 'count'], function (method) {
+_.each(['find', 'findOne', 'count', 'findById'], function (method) {
     mongoose.Model[method] = _.wrap(mongoose.Model[method], function (fn) {
         var args = [].slice.call(arguments);
         // if callback exist convert that in to exec style execution and forward to exec wrapper
@@ -63,6 +63,8 @@ module.exports = function(schema, options) {
     });
 
     schema.statics.hardRemove = function(one, two, three) {
+        // @TODO: get something like this working:
+        // return this.collection.remove.apply(this, arguments);
         return this.collection.remove(one, two, three);
     };
 

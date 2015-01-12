@@ -30,11 +30,11 @@ describe("Statics: remove(); ", function() {
             _id: test._id
         }, function(err) {
             should.not.exist(err);
-            Test.findById(test._id, function(err, test) {
-                // findById is still returning deleted documents.
-                test.deleted.should.be.true;
-                should.exist(test.deletedAt);
 
+            Test.collection.findOne( { _id: test._id }, function(err, doc){
+
+            	doc.deleted.should.be.true;
+                should.exist(doc.deletedAt);
                 done();
             });
         });
@@ -43,7 +43,7 @@ describe("Statics: remove(); ", function() {
 
 describe("Methods: remove(); ", function() {
 
-    it("Should det deleted document to true.", function(done) {
+    it("Should set deleted document to true.", function(done) {
         Test.findById(test._id, function(err, test) {
 
             should.not.exist(err);
@@ -53,14 +53,13 @@ describe("Methods: remove(); ", function() {
 
                 should.not.exist(err);
 
-                Test.findById(test._id, function(err, test) {
-                    test.deleted.should.be.true;
+                Test.collection.findOne( { _id: test._id }, function(err, doc){
 
-                    done();
-                    // findById is still returning deleted documents.
-                });
+	            	doc.deleted.should.be.true;
+	                should.exist(doc.deletedAt);
+	                done();
+	            });
             });
-            // findById is still returning deleted documents.
         });
     });
 });

@@ -1,0 +1,81 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/roland/.nvm/v0.10.33/bin/node',
+1 verbose cli   '/Users/roland/.nvm/v0.10.33/bin/npm',
+1 verbose cli   'i' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json example@1.0.0 No description
+5 warn package.json example@1.0.0 No repository field.
+6 warn package.json example@1.0.0 No README data
+7 verbose readDependencies using package.json deps
+8 verbose install where, deps [ '/Users/roland/Sites/mongoose-soft-delete/example',
+8 verbose install   [ 'crud-generator',
+8 verbose install     'mocha',
+8 verbose install     'mongoose-fixtures',
+8 verbose install     'nodemon',
+8 verbose install     'should',
+8 verbose install     'supertest' ] ]
+9 info preinstall example@1.0.0
+10 verbose readDependencies using package.json deps
+11 verbose already installed skipping mongoose-fixtures@0.0.1 /Users/roland/Sites/mongoose-soft-delete/example
+12 verbose already installed skipping nodemon@^1.2.1 /Users/roland/Sites/mongoose-soft-delete/example
+13 verbose already installed skipping should@^4.5.0 /Users/roland/Sites/mongoose-soft-delete/example
+14 verbose already installed skipping supertest@^0.15.0 /Users/roland/Sites/mongoose-soft-delete/example
+15 verbose cache add [ 'crud-generator@git+https://github.com/inlightmedia/node-crud-generator',
+15 verbose cache add   null ]
+16 verbose cache add name=undefined spec="crud-generator@git+https://github.com/inlightmedia/node-crud-generator" args=["crud-generator@git+https://github.com/inlightmedia/node-crud-generator",null]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: null,
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'crud-generator@git+https://github.com/inlightmedia/node-crud-generator',
+17 verbose parsed url   path: 'crud-generator@git+https://github.com/inlightmedia/node-crud-generator',
+17 verbose parsed url   href: 'crud-generator@git+https://github.com/inlightmedia/node-crud-generator' }
+18 verbose already installed skipping mocha@^2.1.0 /Users/roland/Sites/mongoose-soft-delete/example
+19 verbose cache add name="crud-generator" spec="git+https://github.com/inlightmedia/node-crud-generator" args=["crud-generator","git+https://github.com/inlightmedia/node-crud-generator"]
+20 verbose parsed url { protocol: 'git+https:',
+20 verbose parsed url   slashes: true,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: 'github.com',
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: 'github.com',
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: '/inlightmedia/node-crud-generator',
+20 verbose parsed url   path: '/inlightmedia/node-crud-generator',
+20 verbose parsed url   href: 'git+https://github.com/inlightmedia/node-crud-generator' }
+21 silly lockFile 2387074d-inlightmedia-node-crud-generator https://github.com/inlightmedia/node-crud-generator
+22 verbose lock https://github.com/inlightmedia/node-crud-generator /Users/roland/.npm/2387074d-inlightmedia-node-crud-generator.lock
+23 verbose addRemoteGit [ 'https://github.com/inlightmedia/node-crud-generator',
+23 verbose addRemoteGit   'master' ]
+24 error git clone https://github.com/inlightmedia/node-crud-generator Cloning into bare repository '/Users/roland/.npm/_git-remotes/https-github-com-inlightmedia-node-crud-generator-2387074d'...
+24 error git clone https://github.com/inlightmedia/node-crud-generator remote: Repository not found.
+24 error git clone https://github.com/inlightmedia/node-crud-generator fatal: repository 'https://github.com/inlightmedia/node-crud-generator/' not found
+25 silly lockFile 2387074d-inlightmedia-node-crud-generator https://github.com/inlightmedia/node-crud-generator
+26 silly lockFile 2387074d-inlightmedia-node-crud-generator https://github.com/inlightmedia/node-crud-generator
+27 error Error: Command failed: Cloning into bare repository '/Users/roland/.npm/_git-remotes/https-github-com-inlightmedia-node-crud-generator-2387074d'...
+27 error remote: Repository not found.
+27 error fatal: repository 'https://github.com/inlightmedia/node-crud-generator/' not found
+27 error
+27 error     at ChildProcess.exithandler (child_process.js:648:15)
+27 error     at ChildProcess.emit (events.js:98:17)
+27 error     at maybeClose (child_process.js:756:16)
+27 error     at Socket.<anonymous> (child_process.js:969:11)
+27 error     at Socket.emit (events.js:95:17)
+27 error     at Pipe.close (net.js:465:12)
+28 error If you need help, you may report this *entire* log,
+28 error including the npm and node versions, at:
+28 error     <http://github.com/npm/npm/issues>
+29 error System Darwin 14.0.0
+30 error command "/Users/roland/.nvm/v0.10.33/bin/node" "/Users/roland/.nvm/v0.10.33/bin/npm" "i"
+31 error cwd /Users/roland/Sites/mongoose-soft-delete/example
+32 error node -v v0.10.33
+33 error npm -v 1.4.28
+34 error code 128
+35 verbose exit [ 1, true ]

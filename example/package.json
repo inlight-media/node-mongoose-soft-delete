@@ -1,0 +1,25 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "NODE_ENV=test node node_modules/nodemon/bin/nodemon.js node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js",
+    "debug": "node-debug --p 8888 server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crud-generator": "inlight-media/node-crud-generator"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "mongoose-fixtures": "0.0.1",
+    "nodemon": "^1.2.1",
+    "should": "^4.5.0",
+    "supertest": "^0.15.0"
+  }
+}

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 mongoose.connect(process.env.MONGOOSE_TEST_URI || 'mongodb://localhost/test');
 
-var mongooseSoftDelete = require('../../');
+var softDelete = require('../../');
 
 var schema = new Schema({
     name: String
@@ -10,6 +10,6 @@ var schema = new Schema({
     collection: 'testCollection'
 });
 
-schema.plugin(mongooseSoftDelete);
+schema.plugin(softDelete);
 
 module.exports = mongoose.model('test', schema);

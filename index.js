@@ -62,21 +62,8 @@ module.exports = function(schema, options) {
         next();
     });
 
-    schema.statics.hardRemove = function(conditions, callback) {
-        // console.log('hardRemove arguments', arguments);
-        //@TODO handle no conditions case/ one argument.
-
-        // mirror mongoose .remove
-        // https://github.com/LearnBoost/mongoose/blob/master/lib/model.js#L630
-
-        //@NOTE am I removing a whole collection here?
-        this.collection.remove(function(err) {
-            if (err) {
-                callback(err);
-            }
-            callback(null, {});
-
-        });
+    schema.statics.hardRemove = function(one, two, three) {
+        return this.collection.remove.apply(one, two, three);
     };
 
     schema.statics.remove = function(first, second) {

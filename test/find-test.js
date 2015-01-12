@@ -7,9 +7,6 @@ var mongoose = require('mongoose');
 describe("find(); ", function() {
 
     var test = fixtures.test.default;
-    // beforeEach(function(done){
-    //     Test.hardRemove(done);
-    // })
 
     it("Should return an array of all non soft deleted documents", function(done) {
         Test.find(function(err, tests) {

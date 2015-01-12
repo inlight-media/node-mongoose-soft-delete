@@ -8,7 +8,7 @@ describe("hardRemove(); ", function() {
 
     var test = fixtures.test.default;
 
-    it("should remove the document from the database.", function(done) {
+    it("should remove a specific document from the database.", function(done) {
         Test.hardRemove({
             _id: test._id
         }, function(err) {
@@ -21,6 +21,17 @@ describe("hardRemove(); ", function() {
 
                 done();
             });
+        });
+    });
+
+    it("Should remove all documents from the database.", function(done) {
+        Test.find(function(err, doc) {
+            Test.hardRemove(function(err) {
+                should.not.exist(err);
+                // test that documents are deleted fromt the db
+                done();
+            });
+
         });
     });
 

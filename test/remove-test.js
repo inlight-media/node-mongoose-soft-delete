@@ -3,10 +3,10 @@ var should = require('should');
 var Test = require('./lib/model');
 var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
+var test = fixtures.test.default;
 
-describe("remove(); ", function() {
+describe("Statics: remove(); ", function() {
 
-    var test = fixtures.test.default;
 
     it("Should remove all documents.", function(done) {
         Test.find(function(err, doc) {
@@ -37,6 +37,30 @@ describe("remove(); ", function() {
 
                 done();
             });
+        });
+    });
+});
+
+describe("Methods: remove(); ", function() {
+
+    it("Should det deleted document to true.", function(done) {
+        Test.findById(test._id, function(err, test) {
+
+            should.not.exist(err);
+            test.deleted.should.be.false;
+
+            test.remove(function(err) {
+
+                should.not.exist(err);
+
+                Test.findById(test._id, function(err, test) {
+                    test.deleted.should.be.true;
+
+                    done();
+                    // findById is still returning deleted documents.
+                });
+            });
+            // findById is still returning deleted documents.
         });
     });
 });

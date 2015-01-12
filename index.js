@@ -63,7 +63,7 @@ module.exports = function(schema, options) {
     });
 
     schema.statics.hardRemove = function(one, two, three) {
-        return this.collection.remove.apply(one, two, three);
+        return this.collection.remove(one, two, three);
     };
 
     schema.statics.remove = function(first, second) {
@@ -101,19 +101,19 @@ module.exports = function(schema, options) {
         });
     };
 
-    // @TODO test methods
-    // schema.methods.remove = function (first, second) {
-    //     var callback = typeof first === 'function' ? first : second,
-    //         deletedBy = second !== undefined ? first : null;
+    //@TODO test methods
+    schema.methods.remove = function (first, second) {
+        var callback = typeof first === 'function' ? first : second,
+            deletedBy = second !== undefined ? first : null;
 
-    //     if (typeof callback !== 'function') {
-    //         throw ('Wrong arguments!');
-    //     }
+        if (typeof callback !== 'function') {
+            throw ('Wrong arguments!');
+        }
 
-    //     this.deleted = true;
-    //     this.deletedAt = new Date();
+        this.deleted = true;
+        this.deletedAt = new Date();
 
-    //     this.save(callback);
-    // };
+        this.save(callback);
+    };
 
 };

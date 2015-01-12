@@ -1,3 +1,6 @@
+Mongoose Soft Delete
+====================
+
 Mongoose Soft Delete is a Mongoose plugin that discreetly enables soft delete. 
 ```
 var softDelete = require('mongoose-soft-delete');

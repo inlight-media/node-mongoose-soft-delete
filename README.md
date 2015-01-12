@@ -24,7 +24,7 @@ Model.hardRemove(function () {
 });
 ```
 #### .find()
-Only returns document/s where deleted equals false.
+Only returns document/s where deleted does not equal ture.
 ```
 Model.find(function () {
       // [{ deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 },

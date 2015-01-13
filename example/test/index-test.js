@@ -9,8 +9,7 @@ describe("Tests  ", function() {
     var test = fixtures.test.default;
 
     it("Should index.", function(done) {
-        var url = '/';
-        request.get(url)
+        request.get('/')
             .expect('Content-Type', /json/)
             .expect(200, function(err, res) {
                 should.not.exist(err);
@@ -20,8 +19,7 @@ describe("Tests  ", function() {
     });
 
     it("Should create the resource successfully", function(done) {
-        var url = '/';
-        request.post(url)
+        request.post('/')
             .send(test)
             .expect('Content-Type', /json/)
             .expect(200, function(err, res) {

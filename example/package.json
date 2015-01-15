@@ -15,7 +15,8 @@
   "dependencies": {
     "crud-generator": "inlight-media/node-crud-generator",
     "express": "^4.10.7",
-    "mongoose": "^3.8.21"
+    "mongoose": "^3.8.21",
+    "mongoose-helper": "0.0.2"
   },
   "devDependencies": {
     "mocha": "^2.1.0",

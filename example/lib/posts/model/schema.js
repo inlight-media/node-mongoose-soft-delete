@@ -4,8 +4,6 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     title: String
-}, {
-    collection: 'testCollection'
 });
 
 // schema.plugin(softDelete);

@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var controller = require('./lib/controller');
+var userController = require('./lib/users/controller');
 var express = require('express');
 var app = express();
-var Test = require('./lib/model');
 
 mongoose.connect(process.env.MONGOOSE_TEST_URI || 'mongodb://localhost/test');
 
@@ -16,11 +15,11 @@ mongoose.connection.on('open', function() {
 
 var router = new express.Router();
 
-router.get('/', controller.index);
-router.post('/', controller.create);
-router.get('/:test', controller.show);
-router.put('/:test', controller.update);
-router.delete('/:test', controller.destroy);
+router.get('/', userController.index);
+router.post('/', userController.create);
+router.get('/:user', userController.show);
+router.put('/:user', userController.update);
+router.delete('/:user', userController.destroy);
 
 app.use('/', router);
 

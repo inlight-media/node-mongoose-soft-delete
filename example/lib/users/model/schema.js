@@ -4,6 +4,8 @@ var softDelete = require('../../../../')(mongoose);
 
 var schema = new Schema({
     name: String
+}, {
+    collection: 'userCollection'
 });
 
 schema.plugin(softDelete);

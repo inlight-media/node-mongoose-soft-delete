@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 describe("Tests  ", function() {
 
-    var User = fixtures.user.default;
+    var user = fixtures.user.default;
 
     it("Should index.", function(done) {
         request.get('/')

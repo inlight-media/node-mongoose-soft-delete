@@ -8,5 +8,7 @@ beforeEach(function beforeEachTest(done) {
 });
 
 after(function(done) {
-    mongoose.connection.db.dropCollection("testCollection", done);
+    mongoose.connection.db.dropCollection("postCollection", function() {
+        mongoose.connection.db.dropCollection("userCollection", done);
+    });
 });

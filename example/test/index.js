@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var fixtures = require('mongoose-fixtures');
 
+var User = require('../lib/users/model');
+var Post = require('../lib/posts/model');
+
 // Before each test, load the fixture data to ensure consistent tests.
 var data = require('./lib/fixtures');
 beforeEach(function beforeEachTest(done) {
@@ -19,7 +22,7 @@ function dropMongoDatabase(callback) {
 				console.log(err);
 				throw err;
 			}
-			callback(err);
+			callback();
 		});
 	};
 

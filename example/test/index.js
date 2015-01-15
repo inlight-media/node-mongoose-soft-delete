@@ -7,11 +7,30 @@ beforeEach(function beforeEachTest(done) {
     fixtures.load(data, done);
 });
 
+function dropMongoDatabase(callback) {
+	// Drop the database once connected (or immediately if connected).
+	var CONNECTION_STATES = mongoose.Connection.STATES;
+	var readyState = mongoose.connection.readyState;
+	var connected = false;
+
+	var drop = function() {
+		mongoose.connection.db.dropDatabase(function(err) {
+			if (err) {
+				console.log(err);
+				throw err;
+			}
+			callback(err);
+		});
+	};
+
+	if (CONNECTION_STATES[readyState] === 'connected') {
+		drop();
+	}
+	else {
+		mongoose.connection.once('connected', drop);
+	}
+}
+
 after(function(done) {
-    mongoose.connection.db.dropDatabase(function(err) {
-        if (err) {
-            console.log(err);
-        }
-        done();
-    });
+    dropMongoDatabase(done);
 });

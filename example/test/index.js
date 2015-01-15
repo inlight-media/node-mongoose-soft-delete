@@ -8,7 +8,10 @@ beforeEach(function beforeEachTest(done) {
 });
 
 after(function(done) {
-    mongoose.connection.db.dropCollection("postCollection", function() {
-        mongoose.connection.db.dropCollection("userCollection", done);
+    mongoose.connection.db.dropDatabase(function(err) {
+        if (err) {
+            console.log(err);
+        }
+        done();
     });
 });

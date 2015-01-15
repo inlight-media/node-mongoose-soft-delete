@@ -50,7 +50,6 @@ var post = {
 };
 
 module.exports = {
-    user: user
-    // ,
-    // post: post
+    user: user,
+    post: post
 };

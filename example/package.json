@@ -15,7 +15,7 @@
   "dependencies": {
     "crud-generator": "inlight-media/node-crud-generator",
     "express": "^4.10.7",
-    "mongoose": "LearnBoost/mongoose",
+    "mongoose": "LearnBoost/mongoose#f84c941cd825b7898269f37f10e44baf6bdb2ec7",
     "mongoose-helper": "0.0.2"
   },
   "devDependencies": {

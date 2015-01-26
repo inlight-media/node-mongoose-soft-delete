@@ -19,7 +19,7 @@
   "dependencies": {
     "hooks": "^0.3.2",
     "lodash": "^2.4.1",
-    "mongoose": "LearnBoost/mongoose"
+    "mongoose": "LearnBoost/mongoose#f84c941cd825b7898269f37f10e44baf6bdb2ec7"
   },
   "devDependencies": {
     "mocha": "^2.0.1",

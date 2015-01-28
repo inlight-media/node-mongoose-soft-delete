@@ -14,7 +14,7 @@ module.exports = function(schema) {
 		next();
 	});
 
-	var hooks = [ 'find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
+	var hooks = ['find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
 
 	hooks.forEach(function(hook) {
 		schema.pre(hook, function(next) {
@@ -26,13 +26,6 @@ module.exports = function(schema) {
 			next();
 		});
 	});
-
-	schema.statics.hardRemove = function(one, two, three) {
-		console.log(arguments);
-		// @TODO: get something like this working:
-		// return this.collection.remove.apply(this, arguments);
-		return this.collection.remove(one, two, three);
-	};
 
 	schema.statics.remove = function(first, second) {
 		var callback;
@@ -64,16 +57,13 @@ module.exports = function(schema) {
 			if (numberAffected === 0) {
 				return callback('Wrong arguments!');
 			}
-			console.log('hah');
 			callback(null);
 
 		});
 	};
 
-	// //@TODO test methods
 	schema.methods.remove = function(first, second) {
-		var callback = typeof first === 'function' ? first : second,
-			deletedBy = second !== undefined ? first : null;
+		var callback = typeof first === 'function' ? first : second;
 
 		if (typeof callback !== 'function') {
 			throw ('Wrong arguments!');
@@ -84,4 +74,24 @@ module.exports = function(schema) {
 
 		this.save(callback);
 	};
+
+	schema.statics.hardRemove = function() {
+		return this.remove.apply(this, arguments);
+	};
+
+	schema.methods.hardRemove = function(first, second) {
+		var callback = typeof first === 'function' ? first : second;
+
+		if (typeof callback !== 'function') {
+			throw ('Wrong arguments!');
+		}
+
+		this.collection.remove({ _id: this._id }, callback);
+	};
+
+	schema.methods.restore = function (callback) {
+        this.deleted = false;
+        this.deletedAt = undefined;
+        this.save(callback);
+    };
 };

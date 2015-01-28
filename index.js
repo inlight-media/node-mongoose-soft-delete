@@ -7,42 +7,6 @@ module.exports = function(schema) {
 		}
 	});
 
-	schema.pre('find', function(next) {
-		this.where({
-			deleted: {
-				'$ne': true
-			}
-		});
-		next();
-	});
-
-	schema.pre('findOne', function(next) {
-		this.where({
-			deleted: {
-				'$ne': true
-			}
-		});
-		next();
-	});
-
-	schema.pre('findOneAndUpdate', function(next) {
-		this.where({
-			deleted: {
-				'$ne': true
-			}
-		});
-		next();
-	});
-
-	schema.pre('update', function(next) {
-		this.where({
-			deleted: {
-				'$ne': true
-			}
-		});
-		next();
-	});
-
 	schema.pre('save', function(next) {
 		if (!this.deleted) {
 			this.deleted = false;
@@ -50,7 +14,21 @@ module.exports = function(schema) {
 		next();
 	});
 
+	var hooks = [ 'find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
+
+	hooks.forEach(function(hook) {
+		schema.pre(hook, function(next) {
+			this.where({
+				deleted: {
+					'$ne': true
+				}
+			});
+			next();
+		});
+	});
+
 	schema.statics.hardRemove = function(one, two, three) {
+		console.log(arguments);
 		// @TODO: get something like this working:
 		// return this.collection.remove.apply(this, arguments);
 		return this.collection.remove(one, two, three);
@@ -86,12 +64,13 @@ module.exports = function(schema) {
 			if (numberAffected === 0) {
 				return callback('Wrong arguments!');
 			}
+			console.log('hah');
 			callback(null);
 
 		});
 	};
 
-	//@TODO test methods
+	// //@TODO test methods
 	schema.methods.remove = function(first, second) {
 		var callback = typeof first === 'function' ? first : second,
 			deletedBy = second !== undefined ? first : null;

@@ -36,9 +36,7 @@ module.exports = function(schema) {
 			conditions = {};
 		} else {
 			callback = second;
-			conditions = {
-				_id: first._id
-			};
+			conditions = first;
 		}
 
 		if (typeof callback !== 'function') {
@@ -89,7 +87,40 @@ module.exports = function(schema) {
 		this.collection.remove({ _id: this._id }, callback);
 	};
 
-	schema.methods.restore = function (callback) {
+	schema.statics.restore = function (first, second) {
+        var callback;
+		var conditions;
+
+		if (typeof first === 'function') {
+			callback = first;
+			conditions = {};
+		} else {
+			callback = second;
+			conditions = first;
+		}
+
+		if (typeof callback !== 'function') {
+			throw ('Wrong arguments!');
+		}
+
+		var update = {
+			$set: { deleted: false },
+			$unset: { deletedAt: '' }
+		};
+
+		this.collection.update(conditions, update, function(err, numberAffected) {
+			if (err) {
+				return callback(err);
+			}
+			if (numberAffected === 0) {
+				return callback('Wrong arguments!');
+			}
+			callback(null);
+
+		});
+    };
+
+    schema.methods.restore = function (callback) {
         this.deleted = false;
         this.deletedAt = undefined;
         this.save(callback);

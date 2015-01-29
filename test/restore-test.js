@@ -5,45 +5,37 @@ var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
 describe("restore(); Method:", function() {
-    var test4 = new Test(fixtures.test.default4);
 
+    it("Should restore a soft deleted document.", function(done) {
 
-    xit("Should restore a soft deleted document.", function(done) {
+        Test.find({
+            includeDeleted: true,
+            name: 'test4'
+        }, function(err, docs) {
+            should.not.exist(err);
+            var test4 = docs[0];
 
+            test4.deleted.should.be.true;
 
-        // Model = mongoose.model('test');
+            test4.restore(function(err) {
+                should.not.exist(err);
 
-        // Model.collection.remove(function(err){
-        //     console.log('it worked');
-        // });
-        // duplicate id or somethang
-        // works with it.only
-        // mongoose.connection.db.collection('testCollection').find({
-        //     name: 'test4'
-        // }).toArray(function(err, docs) {
-        //     console.log(docs[0]);
-        //     docs[0].restore(function(err, restoredDoc) {
+                Test.find({
+                    name: 'test4'
+                }, function(err, docs) {
+                    should.not.exist(err);
+                    var test4 = docs[0];
+                    test4.deleted.should.be.false;
 
-        //         restoredDoc.deleted.should.be.false;
-        //         should.not.exist(restoredDoc.deletedAt);
-        //         done();
-        //     });
-        // });
+                    done();
+                });
+            });
 
-        test4.deleted.should.be.true;
-
-        test4.restore(function(err, restoredDoc) {
-            console.log(arguments);
-            // restoredDoc.deleted.should.be.false;
-            // should.not.exist(restoredDoc.deletedAt);
-            done();
         });
     });
 });
 
 describe("restore(); Static:", function() {
-
-
 
     it("Should restore a soft deleted document.", function(done) {
         var test4 = new Test(fixtures.test.default4);

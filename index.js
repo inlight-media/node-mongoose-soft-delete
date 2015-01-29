@@ -18,6 +18,12 @@ module.exports = function(schema) {
 
 	hooks.forEach(function(hook) {
 		schema.pre(hook, function(next) {
+
+			if (this._conditions.includeDeleted === true) {
+				delete this._conditions.includeDeleted;
+				return next();
+			}
+
 			this.where({
 				deleted: {
 					'$ne': true
@@ -79,16 +85,18 @@ module.exports = function(schema) {
 
 	schema.methods.hardRemove = function(first, second) {
 		var callback = typeof first === 'function' ? first : second;
-
+		//@TODO what conditions does the remove method use?
 		if (typeof callback !== 'function') {
 			throw ('Wrong arguments!');
 		}
 
-		this.collection.remove({ _id: this._id }, callback);
+		this.collection.remove({
+			_id: this._id
+		}, callback);
 	};
 
-	schema.statics.restore = function (first, second) {
-        var callback;
+	schema.statics.restore = function(first, second) {
+		var callback;
 		var conditions;
 
 		if (typeof first === 'function') {
@@ -104,8 +112,12 @@ module.exports = function(schema) {
 		}
 
 		var update = {
-			$set: { deleted: false },
-			$unset: { deletedAt: '' }
+			$set: {
+				deleted: false
+			},
+			$unset: {
+				deletedAt: ''
+			}
 		};
 
 		this.collection.update(conditions, update, function(err, numberAffected) {
@@ -118,11 +130,11 @@ module.exports = function(schema) {
 			callback(null);
 
 		});
-    };
+	};
 
-    schema.methods.restore = function (callback) {
-        this.deleted = false;
-        this.deletedAt = undefined;
-        this.save(callback);
-    };
+	schema.methods.restore = function(callback) {
+		this.deleted = false;
+		this.deletedAt = undefined;
+		this.save(callback);
+	};
 };

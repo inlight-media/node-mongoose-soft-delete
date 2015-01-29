@@ -6,33 +6,7 @@ var mongoose = require('mongoose');
 var test = fixtures.test.default;
 
 describe("remove(); Statics: ", function() {
-
-    var test;
-    var test1;
-    var test2;
-    var test3;
-    var test4;
-
-    before(function(done) {
-        test = new Test(fixtures.test.default);
-        test1 = new Test(fixtures.test.default1);
-        test2 = new Test(fixtures.test.default2);
-        test3 = new Test(fixtures.test.default3);
-        test4 = new Test(fixtures.test.default4);
-
-        test.save(function() {
-            test1.save(function() {
-                test2.save(function() {
-                    test3.save(function() {
-                        test4.save(function() {
-                            done();
-                        });
-                    });
-                });
-            });
-        });
-    });
-
+    var test1 = new Test(fixtures.test.default1);
 
     it("Should remove all documents.", function(done) {
         Test.find(function(err, doc) {
@@ -71,32 +45,7 @@ describe("remove(); Statics: ", function() {
 });
 
 describe("remove(); Methods: ", function() {
-
-    var test;
-    var test1;
-    var test2;
-    var test3;
-    var test4;
-
-    before(function(done) {
-        test = new Test(fixtures.test.default);
-        test1 = new Test(fixtures.test.default1);
-        test2 = new Test(fixtures.test.default2);
-        test3 = new Test(fixtures.test.default3);
-        test4 = new Test(fixtures.test.default4);
-
-        test.save(function() {
-            test1.save(function() {
-                test2.save(function() {
-                    test3.save(function() {
-                        test4.save(function() {
-                            done();
-                        });
-                    });
-                });
-            });
-        });
-    });
+    var test2 = new Test(fixtures.test.default2);
 
     it("Should set deleted document to true.", function(done) {
         Test.findById(test2._id, function(err, test) {

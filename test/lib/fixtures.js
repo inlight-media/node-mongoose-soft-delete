@@ -22,7 +22,8 @@ var test = {
     default4: {
         _id: new ObjectId(),
         name: 'test4',
-        deleted: true
+        deleted: true,
+        deletedAt: new Date()
     }
 };
 

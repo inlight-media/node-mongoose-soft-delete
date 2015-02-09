@@ -2,49 +2,49 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 
 var user = {
-    default: {
-        _id: new ObjectId(),
-        name: 'user'
-    },
-    default1: {
+    user1: {
         _id: new ObjectId(),
         name: 'user1'
     },
-    default2: {
+    user2: {
         _id: new ObjectId(),
         name: 'user2'
     },
-    default3: {
+    user3: {
         _id: new ObjectId(),
         name: 'user3'
     },
-    default4: {
+    user4: {
         _id: new ObjectId(),
-        name: 'user4',
+        name: 'user4'
+    },
+    user5: {
+        _id: new ObjectId(),
+        name: 'user5',
         deleted: true
     }
 };
 
 var post = {
-    default: {
+    post1: {
         _id: new ObjectId(),
-        notAName: 'test'
+        title: 'post1'
     },
-    default1: {
+    post2: {
         _id: new ObjectId(),
-        notAName: 'test1'
+        title: 'post2'
     },
-    default2: {
+    post3: {
         _id: new ObjectId(),
-        notAName: 'test2'
+        title: 'post3'
     },
-    default3: {
+    post4: {
         _id: new ObjectId(),
-        notAName: 'test3'
+        title: 'post4'
     },
-    default4: {
+    post5: {
         _id: new ObjectId(),
-        notAName: 'test4',
+        title: 'post5',
         deleted: true
     }
 };

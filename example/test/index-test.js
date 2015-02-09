@@ -4,9 +4,8 @@ var should = require('should');
 var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
-describe("Tests  ", function() {
-
-    var User = fixtures.user.default;
+describe("Example App Tests  ", function() {
+    var user = fixtures.user.user1;
 
     it("Should index.", function(done) {
         request.get('/')
@@ -19,6 +18,7 @@ describe("Tests  ", function() {
     });
 
     it("Should create the resource successfully", function(done) {
+
         request.post('/')
             .send(user)
             .expect('Content-Type', /json/)

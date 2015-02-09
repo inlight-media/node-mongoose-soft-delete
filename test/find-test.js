@@ -5,8 +5,7 @@ var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
 describe("find(); ", function() {
-
-    var test = fixtures.test.default;
+    var test = new Test(fixtures.test.default);
 
     it("Should return an array of all non soft deleted documents", function(done) {
         Test.find(function(err, tests) {
@@ -28,7 +27,6 @@ describe("find(); ", function() {
             Test.find(function(err, tests) {
 
                 should.not.exist(err);
-
                 tests.should.be.instanceof(Array).and.have.lengthOf(3);
                 tests.forEach(function(test) {
                     test.deleted.should.be.false;

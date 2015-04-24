@@ -13,8 +13,10 @@ To bypass softDelete, simply use native mongo queries.
 Eg:
 ```
 Model.collection.find({}).toArray(function(err, doc){
-    // [{ deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 },
-    // { deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }]
+    // [{ deleted: ture, name: 'Fluffy1', _id: 53db63bb322236e666c3d7a1 },
+    // { deleted: ture, name: 'Fluffy2', _id: 53db63bb322236e666c3d7a2 },
+    // { deleted: false, name: 'Fluffy3', _id: 53db63bb322236e666c3d7a3 },
+    // { deleted: false, name: 'Fluffy4', _id: 53db63bb322236e666c3d7a4 }]
 });    
 ```      
 
@@ -33,8 +35,8 @@ Model.remove(function (err, doc) {
 Only query document/s where deleted does not equal ture.
 ```
 Model.find(function (err, doc) {
-      // [{ deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 },
-      // { deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }]
+      // [{ deleted: false, name: 'Fluffy1', _id: 53db63bb322236e666c3d7a1 },
+      // { deleted: false, name: 'Fluffy2', _id: 53db63bb322236e666c3d7a2 }]
 });
 ```
 

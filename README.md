@@ -9,26 +9,30 @@ var softDelete = require('mongoose-soft-delete');
 schema.plugin(softDelete);
 ```
 
+To bypass softDelete, simply use native mongo queried.
+Eg:
+```
+Model.collection.find({}).toArray(function(err, doc){
+    // [{ deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 },
+    // { deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }]
+});    
+```      
+
+
 ### Examples
 
 #### .remove()
 Sets deleted key to true.
 ```
-Model.remove(function () {
+Model.remove(function (err, doc) {
        // mongodb: { deleted: true, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }
 });
 ```
-#### .hardRemove()
-Removes document/s from the database.
+
+#### .find(), .findOne(), .findOneAndUpdate(), .update(), .count()
+Only query document/s where deleted does not equal ture.
 ```
-Model.hardRemove(function () {
-       // mongodb: []
-});
-```
-#### .find()
-Only returns document/s where deleted does not equal ture.
-```
-Model.find(function () {
+Model.find(function (err, doc) {
       // [{ deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 },
       // { deleted: false, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }]
 });

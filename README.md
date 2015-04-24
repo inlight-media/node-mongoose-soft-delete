@@ -9,7 +9,7 @@ var softDelete = require('mongoose-soft-delete');
 schema.plugin(softDelete);
 ```
 
-To bypass softDelete, simply use native mongo queried.
+To bypass softDelete, simply use native mongo queries.
 Eg:
 ```
 Model.collection.find({}).toArray(function(err, doc){

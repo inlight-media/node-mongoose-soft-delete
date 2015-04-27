@@ -7,13 +7,6 @@ module.exports = function(schema) {
 		}
 	});
 
-	schema.pre('save', function(next) {
-		if (!this.deleted) {
-			this.deleted = false;
-		}
-		next();
-	});
-
 	var hooks = ['find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
 
 	hooks.forEach(function(hook) {
@@ -112,11 +105,9 @@ module.exports = function(schema) {
 		}
 
 		var update = {
-			$set: {
-				deleted: false
-			},
 			$unset: {
-				deletedAt: ''
+				deleted: 1,
+				deletedAt: 1
 			}
 		};
 
@@ -133,7 +124,7 @@ module.exports = function(schema) {
 	};
 
 	schema.methods.restore = function(callback) {
-		this.deleted = false;
+		this.deleted = undefined;
 		this.deletedAt = undefined;
 		this.save(callback);
 	};

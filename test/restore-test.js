@@ -25,7 +25,7 @@ describe("restore(); Method:", function() {
                 }, function(err, docs) {
                     should.not.exist(err);
                     var test4 = docs[0];
-                    test4.deleted.should.be.false;
+                    should.not.exist(test4.deleted);
 
                     done();
                 });
@@ -46,8 +46,9 @@ describe("restore(); Static:", function() {
             Test.find({
                 name: 'test4'
             }, function(err, test4) {
+                should.not.exist(err);
+                should.not.exist(test4[0].deleted);
 
-                test4[0].deleted.should.be.false;
                 done();
             });
         });

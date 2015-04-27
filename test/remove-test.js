@@ -51,7 +51,7 @@ describe("remove(); Methods: ", function() {
         Test.findById(test2._id, function(err, test) {
 
             should.not.exist(err);
-            test.deleted.should.be.false;
+            should.not.exist(test.deleted);
 
             test.remove(function(err) {
 

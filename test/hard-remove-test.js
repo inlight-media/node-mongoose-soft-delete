@@ -42,7 +42,7 @@ describe("hardRemove(); Methods: ", function() {
     it("Should delete that document.", function(done) {
         Test.findById(test3._id, function(err, test) {
             should.not.exist(err);
-            test.deleted.should.be.false;
+            should.not.exist(test.deleted);
 
             test.hardRemove(function(err) {
                 should.not.exist(err);

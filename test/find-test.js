@@ -5,35 +5,23 @@ var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
 describe("find(); ", function() {
-    var test = new Test(fixtures.test.default);
+	var test = new Test(fixtures.test.default);
 
-    it("Should return an array of all non soft deleted documents", function(done) {
-        Test.find(function(err, tests) {
+	it("Should not return document after it is soft deleted.", function(done) {
+		Test.remove({
+			_id: test._id
+		}, function(err) {
+			Test.find(function(err, tests) {
 
-            should.not.exist(err);
-            tests.should.be.instanceof(Array);
-            tests.forEach(function(test) {
-                test.deleted.should.be.false;
-            })
-            done();
+				should.not.exist(err);
+				tests.should.be.instanceof(Array).and.have.lengthOf(3);
+				tests.forEach(function(test) {
+					should.not.exist(test.deleted);
 
-        });
-    });
-
-    it("Should not return document after it is soft deleted.", function(done) {
-        Test.remove({
-            _id: test._id
-        }, function(err) {
-            Test.find(function(err, tests) {
-
-                should.not.exist(err);
-                tests.should.be.instanceof(Array).and.have.lengthOf(3);
-                tests.forEach(function(test) {
-                    test.deleted.should.be.false;
-                });
-                done();
-            });
-        });
-    });
+				});
+				done();
+			});
+		});
+	});
 
 });

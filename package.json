@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test node node_modules/nodemon/bin/nodemon.js node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js"
+    "test": "NODE_ENV=test node node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "dependencies": {
     "hooks": "^0.3.2",
     "lodash": "^2.4.1",
-    "mongoose": "LearnBoost/mongoose#f84c941cd825b7898269f37f10e44baf6bdb2ec7"
+    "mongoose": "^4.0.2"
   },
   "devDependencies": {
     "mocha": "^2.0.1",

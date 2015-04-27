@@ -2,9 +2,7 @@ module.exports = function(schema) {
 
 	schema.add({
 		deleted: Boolean,
-		deletedAt: {
-			type: Date
-		}
+		deletedAt: Date
 	});
 
 	var hooks = ['find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
@@ -72,17 +70,18 @@ module.exports = function(schema) {
 		this.save(callback);
 	};
 
-	schema.statics.hardRemove = function() {
+	schema.statics.destroy = function() {
 		return this.remove.apply(this, arguments);
 	};
 
-	schema.methods.hardRemove = function(first, second) {
+	schema.methods.destroy = function(first, second) {
 		var callback = typeof first === 'function' ? first : second;
 		//@TODO what conditions does the remove method use?
 		if (typeof callback !== 'function') {
 			throw ('Wrong arguments!');
 		}
 
+		//@TODO removing multiple documents
 		this.collection.remove({
 			_id: this._id
 		}, callback);

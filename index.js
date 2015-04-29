@@ -12,11 +12,6 @@ module.exports = function(schema) {
 	hooks.forEach(function(hook) {
 		schema.pre(hook, function(next) {
 
-			if (this._conditions.includeDeleted === true) {
-				delete this._conditions.includeDeleted;
-				return next();
-			}
-
 			this.where({
 				deleted: {
 					'$ne': true

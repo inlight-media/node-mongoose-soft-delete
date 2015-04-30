@@ -1,71 +1,51 @@
-var _ = require('lodash');
-var should = require('should');
 var Test = require('./lib/model');
+var should = require('should');
 var fixtures = require('./lib/fixtures');
-var mongoose = require('mongoose');
-var test = fixtures.test.default;
 
-describe("archive(); Statics: ", function() {
-    var test1 = new Test(fixtures.test.default1);
+describe("archive(); Static: ", function() {
 
-    it("Should archive all documents.", function(done) {
-        Test.find(function(err, doc) {
-            Test.archive(function(err) {
-                should.not.exist(err);
-                Test.find(function(err, tests) {
+	it("Should archive document.", function(done) {
 
-                    should.not.exist(err);
-                    tests.should.be.instanceof(Array);
-                    // tests.should.be.instanceof(Array).and.have.lengthOf(0);
+		Test.archive({
+			name: 'default'
+		}, function(err) {
+			should.not.exist(err);
 
-                    done();
-                });
-            });
+			Test.collection.findOne({
+				name: 'default'
+			}, function(err, doc) {
 
-        });
-    });
+				doc.archived.should.be.true;
+				should.exist(doc.archivedAt);
+				done();
+			});
+		});
+	});
 
-    it("Should set archived to true.", function(done) {
-        Test.archive({
-            _id: test1._id
-        }, function(err) {
-            should.not.exist(err);
-
-            Test.collection.findOne({
-                _id: test1._id
-            }, function(err, doc) {
-
-
-                doc.archived.should.be.true;
-                should.exist(doc.archivedAt);
-                done();
-            });
-        });
-    });
 });
 
-describe("archive(); Methods: ", function() {
-    var test2 = new Test(fixtures.test.default2);
+describe("archive(); Method: ", function() {
 
-    it("Should set archived document to true.", function(done) {
-        Test.findById(test2._id, function(err, test) {
+	it("Should archive document.", function(done) {
+		Test.findOne({
+			name: 'default'
+		}, function(err, doc) {
 
-            should.not.exist(err);
-            should.not.exist(test.archived);
+			should.not.exist(err);
+			should.not.exist(doc.archived);
 
-            test.archive(function(err) {
+			doc.archive(function(err) {
+				should.not.exist(err);
 
-                should.not.exist(err);
+				Test.collection.findOne({
+					name: 'default'
+				}, function(err, doc) {
 
-                Test.collection.findOne({
-                    _id: test2._id
-                }, function(err, doc) {
-
-                    doc.archived.should.be.true;
-                    should.exist(doc.archivedAt);
-                    done();
-                });
-            });
-        });
-    });
+					doc.archived.should.be.true;
+					should.exist(doc.archivedAt);
+					done();
+				});
+			});
+		});
+	});
 });

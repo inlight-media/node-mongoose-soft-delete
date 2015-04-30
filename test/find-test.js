@@ -16,6 +16,19 @@ describe("find(); ", function() {
 		});
 	});
 
+	it(" {} should not return `removed` or `archived` documents by default", function(done) {
+
+		Test.find({}, function(err, tests) {
+			should.not.exist(err);
+			tests.should.be.instanceof(Array).and.have.lengthOf(3);
+			tests.forEach(function(test) {
+				should.not.exist(test.deleted);
+				should.not.exist(test.archived);
+			});
+			done();
+		});
+	});
+
 	it("shoul only return archived documents when using flag `{archived: true}`", function(done) {
 
 		Test.find({

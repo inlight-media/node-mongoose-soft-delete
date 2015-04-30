@@ -1,71 +1,69 @@
-var _ = require('lodash');
-var should = require('should');
-var Test = require('./lib/model');
+// var should = require('should');
+// var Test = require('./lib/model');
 var fixtures = require('./lib/fixtures');
-var mongoose = require('mongoose');
-var test = fixtures.test.default;
+
+var Test = require('./lib/model');
+var should = require('should');
 
 describe("remove(); Statics: ", function() {
-    var test1 = new Test(fixtures.test.default1);
 
-    it("Should remove all documents.", function(done) {
-        Test.find(function(err, doc) {
-            Test.remove(function(err) {
-                should.not.exist(err);
-                Test.find(function(err, tests) {
+	it("Should `remove` all documents.", function(done) {
 
-                    should.not.exist(err);
-                    tests.should.be.instanceof(Array);
-                    // tests.should.be.instanceof(Array).and.have.lengthOf(0);
+		Test.remove(function(err) {
+			should.not.exist(err);
+			Test.find(function(err, tests) {
 
-                    done();
-                });
-            });
+				should.not.exist(err);
+				tests.should.be.instanceof(Array);
+				tests.should.be.instanceof(Array).and.have.lengthOf(0);
 
-        });
-    });
+				done();
+			});
+		});
+	});
 
-    it("Should set deleted to true.", function(done) {
-        Test.remove({
-            _id: test1._id
-        }, function(err) {
-            should.not.exist(err);
+	it("Should set deleted to true.", function(done) {
 
-            Test.collection.findOne({
-                _id: test1._id
-            }, function(err, doc) {
+		Test.remove({
+			name: 'test2'
+		}, function(err, doc) {
+			should.not.exist(err);
 
+			Test.collection.findOne({
+				name: 'test2'
+			}, function(err, doc) {
 
                 doc.deleted.should.be.true;
                 should.exist(doc.deletedAt);
-                done();
-            });
-        });
-    });
+				done();
+			});
+		});
+	});
 });
 
 describe("remove(); Methods: ", function() {
-    var test2 = new Test(fixtures.test.default2);
 
-    it("Should set deleted document to true.", function(done) {
-        Test.findById(test2._id, function(err, test) {
+	it("Should set deleted document to true.", function(done) {
+		Test.findOne({
+			name: 'default'
+		}, function(err, doc) {
 
-            should.not.exist(err);
-            should.not.exist(test.deleted);
+			should.not.exist(err);
+			should.not.exist(doc.deleted);
+			should.not.exist(doc.archived);
 
-            test.remove(function(err) {
+			doc.remove(function(err) {
 
-                should.not.exist(err);
+				should.not.exist(err);
+				Test.collection.findOne({
+					name: 'default'
+				}, function(err, doc) {
 
-                Test.collection.findOne({
-                    _id: test2._id
-                }, function(err, doc) {
-
-                    doc.deleted.should.be.true;
-                    should.exist(doc.deletedAt);
-                    done();
-                });
-            });
-        });
-    });
+					doc.deleted.should.be.true;
+					should.exist(doc.deletedAt);
+					done();
+				});
+			});
+		});
+	});
 });

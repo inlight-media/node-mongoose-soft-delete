@@ -4,12 +4,12 @@ var Test = require('./lib/model');
 var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
-describe("count(); ", function() {
+describe(".count(); ", function() {
 
-	it("Should not count soft deleted documents.", function(done) {
+	it("should not count `removed` or `archived` documents", function(done) {
 		Test.count(function(err, count) {
 			should.not.exist(err);
-			count.should.be.exactly(4).and.be.a.Number;
+			count.should.be.exactly(3).and.be.a.Number;
 
 			done();
 		});

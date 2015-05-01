@@ -1,5 +1,6 @@
 module.exports = function(schema) {
 
+	// add fields to mongoose schema
 	schema.add({
 		removed: Boolean,
 		removedAt: Date,
@@ -7,18 +8,28 @@ module.exports = function(schema) {
 		archivedAt: Date
 	});
 
+	// All mongoose queries are built using these base queries,
+	// therefore adding the `archived` and `removed` logic to these queries adds it to all queries.
 	var queries = ['find', 'findOne', 'findOneAndUpdate', 'update', 'count'];
 
+	// add pre-query logic
 	queries.forEach(function(query) {
 		schema.pre(query, function(next) {
 
+			// default to only querying documents that do not the removed flag set
+			// setting {removed: true} overrides this and only queries removed documents
 			var conditions = {
 				removed: {
 					'$ne': true
 				}
 			};
 
-			if (this._conditions.archived === null) {
+			// {archived: null} returns both archived and unarchived documents, but not removed documents
+
+			// The logic after || is to fix .unarchive logic
+			// the {unarchive: false} falg is set in .unarchive()
+			// .unarchive() uses the `update` query
+			if (this._conditions.archived === null || (this._conditions.archived === false && query === 'update')) {
 				// remove invalid mongoose condition {archived: null}
 				delete this._conditions.archived;
 				this.where(conditions);
@@ -26,6 +37,7 @@ module.exports = function(schema) {
 				return next();
 			}
 
+			// else, also, don't query archived documents
 			conditions.archived = {
 				'$ne': true
 			}
@@ -34,12 +46,6 @@ module.exports = function(schema) {
 			next();
 		});
 	});
-
-	schema.statics.destroy = function() {
-	// save instance of remove
-		// TODO fix this
-		// return this.remove.apply(this, arguments);
-	};
 
 	schema.statics.remove = function(first, second) {
 		// TODO if archived. removed from archived
@@ -113,7 +119,7 @@ module.exports = function(schema) {
 			}
 		};
 		// TODO use mongoose .update
-		this.collection.update(conditions, update, function(err, numberAffected) {
+		this.update(conditions, update, function(err, numberAffected) {
 			if (err) {
 				return callback(err);
 			}
@@ -193,14 +199,20 @@ module.exports = function(schema) {
 			throw ('Wrong arguments!');
 		}
 
+		// set {archived: false} to trip the pre-query hook conditional.
+		conditions.archived = false;
+
+		// remove archived fields
 		var update = {
 			$unset: {
 				archived: 1,
 				archivedAt: 1
 			}
 		};
-		// TODO update with mongoose
-		this.collection.update(conditions, update, function(err, raw) {
+
+		// TODO Mongoose update does not return the document like mongo update does.
+		// maybe use find find first to return the document if we need this functionality in the future.
+		this.update(conditions, update, function(err, raw) {
 			if (err) {
 				return callback(err);
 			}
@@ -217,5 +229,11 @@ module.exports = function(schema) {
 		this.archived = undefined;
 		this.archivedAt = undefined;
 		this.save(callback);
+	};
+
+	schema.statics.destroy = function() {
+		// save instance of remove
+		// TODO fix this
+		// return this.remove.apply(this, arguments);
 	};
 };

@@ -30,7 +30,7 @@ schema.plugin(archive);
 ## Statics and Methods
 
 ### remove(conditions, callback)
-Soft deletes documents for `conditions`.
+Soft-deletes documents for `conditions`.
 Sets a `{ removed: true }` field on the document/s that hides it/them from all mongoose queries unless specifically queried with `{ removed: true }` conditions.
 
 ### restore(conditions, callback)
@@ -38,12 +38,12 @@ Restores 'removed' documents which match `conditions`.
 
 ### archive(conditions, callback)
 Archives documents for `conditions`.
-This sets an `{archived: true}` field on the document/s that hides it/them from all mongoose queries unless specifically queried with `{archived: true}` conditions, or `{archived: null}` which will return both archived and non-archived documents but not 'removed' documents.
+This sets an `{ archived: true }` field on the document/s that hides it/them from all mongoose queries unless specifically queried with `{archived: true}` conditions, or `{ archived: null }` which will return both archived and non-archived documents but not 'removed' documents.
 
 ### unarchive(conditions, callback)
 Unarchives 'archived' documents which match `conditions`.
 
-Examples:
+Example Statics:
 
 ```
 Model.archive(conditons, function (err, doc) {
@@ -59,6 +59,30 @@ Model.remove(conditons, function (err) {
 ```
 Model.unarchive(conditons, function (err, doc) {
        // Archives all documents for `conditions`.
+});
+```
+
+Example Methods:
+
+```
+Model.find(conditons, function (err, doc) {
+       doc.remove(callback);
+});
+```
+```
+Model.find(conditons, function (err, doc) {
+    doc.restore(callback);
+});
+```
+```
+Model.find(conditons, function (err, doc) {
+       doc.archive(callback);
+});
+```
+
+```
+Model.find(conditons, function (err, doc) {
+    doc.unarchive(callback);
 });
 ```
 

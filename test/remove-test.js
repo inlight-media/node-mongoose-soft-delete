@@ -22,7 +22,7 @@ describe("remove(); Statics: ", function() {
 		});
 	});
 
-	it("Should set deleted to true.", function(done) {
+	it("Should set removed to true.", function(done) {
 
 		Test.remove({
 			name: 'test2'
@@ -33,8 +33,8 @@ describe("remove(); Statics: ", function() {
 				name: 'test2'
 			}, function(err, doc) {
 
-                doc.deleted.should.be.true;
-                should.exist(doc.deletedAt);
+                doc.removed.should.be.true;
+                should.exist(doc.removedAt);
 				done();
 			});
 		});
@@ -43,13 +43,13 @@ describe("remove(); Statics: ", function() {
 
 describe("remove(); Methods: ", function() {
 
-	it("Should set deleted document to true.", function(done) {
+	it("Should set removed document to true.", function(done) {
 		Test.findOne({
 			name: 'default'
 		}, function(err, doc) {
 
 			should.not.exist(err);
-			should.not.exist(doc.deleted);
+			should.not.exist(doc.removed);
 			should.not.exist(doc.archived);
 
 			doc.remove(function(err) {
@@ -59,8 +59,8 @@ describe("remove(); Methods: ", function() {
 					name: 'default'
 				}, function(err, doc) {
 
-					doc.deleted.should.be.true;
-					should.exist(doc.deletedAt);
+					doc.removed.should.be.true;
+					should.exist(doc.removedAt);
 					done();
 				});
 			});

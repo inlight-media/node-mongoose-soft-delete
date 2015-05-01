@@ -4,9 +4,9 @@ var Test = require('./lib/model');
 var fixtures = require('./lib/fixtures');
 var mongoose = require('mongoose');
 
-describe.only("unarchive(); Method:", function() {
+describe(".unarchive(); Method:", function() {
 
-    it("Should unarchive a archive all documents.");
+    it("Should unarchive all archived documents.");
 
 	it("Should unarchive a archived document.", function(done) {
 
@@ -27,7 +27,7 @@ describe.only("unarchive(); Method:", function() {
 	});
 });
 
-describe("unarchive(); Static:", function() {
+describe(".unarchive(); Static:", function() {
 
 	it("Should unarchive a archived document.", function(done) {
 		var test4 = new Test(fixtures.test.default4);

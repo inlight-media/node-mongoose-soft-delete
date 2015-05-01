@@ -16,8 +16,8 @@ var test = {
     removed: {
         _id: new ObjectId(),
         name: 'removed',
-        deleted: true,
-        deletedAt: new Date()
+        removed: true,
+        removedAt: new Date()
     },
     test1: {
         _id: new ObjectId(),

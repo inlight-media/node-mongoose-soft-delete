@@ -1,46 +1,66 @@
-Mongoose Soft Delete
-====================
+Mongoose Archiving and Soft Delete
+================================
 
-Mongoose Soft Delete is a Mongoose plugin that discreetly enables soft delete. 
+An archiving and soft delete plugin for Mongoosejs.
+
+
+All archived and removed documents will be hidden from mongoose queries unless specifically queried with the conditions `{archived: true}` or `{deleted: true}`. Using `{archived: null}` will return all archived and non-archived documents, but not removed documents.
+
+### Installing the plugin to your Mongoose schema.
+
 ```
 var mongoose = require('mongoose');
 schema = mongoose.Schema;
-var softDelete = require('mongoose-soft-delete');
-schema.plugin(softDelete);
+var archive = require('mongoose-archive');
+schema.plugin(archive);
 ```
 
-To bypass softDelete, simply use native mongo queries.
-Eg:
+### remove(conditions, callback)
+Soft deletes all documents for `conditions`.
 ```
-Model.collection.find({}).toArray(function(err, doc){
-    // [{ deleted: ture, name: 'Fluffy1', _id: 53db63bb322236e666c3d7a1 },
-    // { deleted: ture, name: 'Fluffy2', _id: 53db63bb322236e666c3d7a2 },
-    // { deleted: false, name: 'Fluffy3', _id: 53db63bb322236e666c3d7a3 },
-    // { deleted: false, name: 'Fluffy4', _id: 53db63bb322236e666c3d7a4 }]
-});    
-```      
-
-
-### Examples
-
-#### .remove()
-Sets deleted key to true.
-```
-Model.remove(function (err, doc) {
-       // mongodb: { deleted: true, name: 'Fluffy', _id: 53db63bb322236e666c3d7a6 }
+Model.remove(conditons, function (err, doc) {
+       // Soft deletes all documents for `conditions`.
 });
 ```
 
-#### .find(), .findOne(), .findOneAndUpdate(), .update(), .count()
-Only query document/s where deleted does not equal ture.
+### archive(conditions, callback)
+Archives all documents for `conditions`.
+
+```
+Model.archive(conditons, function (err, doc) {
+       // Archives all documents for `conditions`.
+});
+```
+
+#### find(), findOne(), findOneAndUpdate(), update(), count()
+Mongoose queries work as expected. In that all `removed` documents are invisible to them, plus all `archived` documents are also invisible.
+
+Examples
+
 ```
 Model.find(function (err, doc) {
-      // [{ deleted: false, name: 'Fluffy1', _id: 53db63bb322236e666c3d7a1 },
-      // { deleted: false, name: 'Fluffy2', _id: 53db63bb322236e666c3d7a2 }]
+      // Returns an array of all non-archived and non-soft-deleted documents.
+});
+```
+
+```
+Model.find({archived: true }, function (err, doc) {
+      // Returns an array of all archived documents.
+});
+```
+
+```
+Model.find({removed: true }, function (err, doc) {
+      // Returns an array of all soft-deleted documents.
+});
+```
+```
+Model.find({archived: null }, function (err, doc) {
+    // Returns an array of all non-archived and non-soft-deleted documents,
+    // Plus all archived documents.
 });
 ```
 
 ### Test
-Tests will connect to mongodb via `mongodb://localhost/test` by default. Add the `MONGOOSE_TEST_URI` environment variable to override this. 
-
-Run `npm test` 
+By default, tests will connect to a test mongodb at `mongodb://localhost/test` by default. Add the `MONGOOSE_TEST_URI` environment variable to override this.
+Run `npm test`

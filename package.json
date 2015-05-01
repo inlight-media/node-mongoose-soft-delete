@@ -1,26 +1,32 @@
 {
-  "name": "mongoose-soft-delete",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "NODE_ENV=test node node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rolandnsharp/mongoose-soft-delete.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rolandnsharp/mongoose-soft-delete/issues"
-  },
-  "homepage": "https://github.com/rolandnsharp/mongoose-soft-delete",
-  "devDependencies": {
-    "mocha": "^2.0.1",
-    "mongoose": "^4.0.2",
-    "mongoose-fixtures": "0.0.1",
-    "should": "^4.4.4",
-    "supertest": "^0.15.0"
-  }
+	"name": "mongoose-soft-delete",
+	"version": "1.0.0",
+	"description": "",
+	"keywords": [
+		"mongoose",
+		"archive",
+		"soft-delete",
+        "plugin"
+	],
+	"main": "index.js",
+	"scripts": {
+		"test": "NODE_ENV=test node node_modules/mocha/bin/mocha --grep ${GREP:-''} test test/*-test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rolandnsharp/mongoose-soft-delete.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/rolandnsharp/mongoose-soft-delete/issues"
+	},
+	"homepage": "https://github.com/rolandnsharp/mongoose-soft-delete",
+	"devDependencies": {
+		"mocha": "^2.0.1",
+		"mongoose": "^4.0.2",
+		"mongoose-fixtures": "0.0.1",
+		"should": "^4.4.4",
+		"supertest": "^0.15.0"
+	}
 }

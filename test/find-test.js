@@ -16,7 +16,7 @@ describe("find(); ", function() {
 		});
 	});
 
-	it(" {} should not return `removed` or `archived` documents by default", function(done) {
+	it("should not return `removed` or `archived` documents with conditions `{}`", function(done) {
 
 		Test.find({}, function(err, tests) {
 			should.not.exist(err);

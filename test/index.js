@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var fixtures = require('mongoose-fixtures');
-var data = require('./lib/fixtures');
+var data = require('./fixtures');
 
 beforeEach(function beforeEachTest(done) {
     fixtures.load(data, done);

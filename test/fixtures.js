@@ -7,12 +7,6 @@ var test = {
         _id: new ObjectId(),
         name: 'default'
     },
-    archived: {
-        _id: new ObjectId(),
-        name: 'archived',
-        archived: true,
-        archivedAt: new Date()
-    },
     removed: {
         _id: new ObjectId(),
         name: 'removed',

@@ -1,69 +1,64 @@
-// var should = require('should');
-// var Test = require('./lib/model');
-var fixtures = require('./lib/fixtures');
-
-var Test = require('./lib/model');
+var Test = require('./model');
 var should = require('should');
 
-describe("remove(); Statics: ", function() {
+describe("Remove Statics: ", function() {
 
-	it("Should `remove` all documents.", function(done) {
+  it("Should `remove` all documents.", function(done) {
 
-		Test.remove(function(err) {
-			should.not.exist(err);
-			Test.find(function(err, tests) {
+    Test.remove(function(err) {
+      should.not.exist(err);
+      Test.find(function(err, tests) {
 
-				should.not.exist(err);
-				tests.should.be.instanceof(Array);
-				tests.should.be.instanceof(Array).and.have.lengthOf(0);
+        should.not.exist(err);
+        tests.should.be.instanceof(Array).and.have.lengthOf(0);
 
-				done();
-			});
-		});
-	});
+        done();
+      });
+    });
+  });
 
-	it("Should set removed to true.", function(done) {
+  it("Should set removed to true in the database.", function(done) {
 
-		Test.remove({
-			name: 'test2'
-		}, function(err, doc) {
-			should.not.exist(err);
+    Test.remove({
+      name: 'test2'
+    }, function(err, doc) {
+      should.not.exist(err);
 
-			Test.collection.findOne({
-				name: 'test2'
-			}, function(err, doc) {
+      Test.collection.findOne({
+        name: 'test2'
+      }, function(err, doc) {
 
-                doc.removed.should.be.true;
-                should.exist(doc.removedAt);
-				done();
-			});
-		});
-	});
+        doc.removed.should.be.true;
+        should.exist(doc.removedAt);
+        done();
+      });
+    });
+  });
 });
 
-describe("remove(); Methods: ", function() {
+describe("Remove Methods: ", function() {
 
-	it("Should set removed document to true.", function(done) {
-		Test.findOne({
-			name: 'default'
-		}, function(err, doc) {
+  it("Should set document removed field to true in the database.", function(done) {
+    Test.findOne({
+      name: 'default'
+    }, function(err, doc) {
 
-			should.not.exist(err);
-			should.not.exist(doc.removed);
-			should.not.exist(doc.archived);
+      should.not.exist(err);
+      should.not.exist(doc.removed);
+      should.not.exist(doc.archived);
 
-			doc.remove(function(err) {
+      doc.remove(function(err) {
 
-				should.not.exist(err);
-				Test.collection.findOne({
-					name: 'default'
-				}, function(err, doc) {
+        should.not.exist(err);
+        Test.collection.findOne({
+          name: 'default'
+        }, function(err, doc) {
 
-					doc.removed.should.be.true;
-					should.exist(doc.removedAt);
-					done();
-				});
-			});
-		});
-	});
+          doc.removed.should.be.true;
+          should.exist(doc.removedAt);
+          done();
+        });
+      });
+    });
+  });
 });

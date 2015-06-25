@@ -16,8 +16,8 @@ var schema = new Schema({
     collection: 'testCollection'
 });
 
-var archive = require('../../');
+var softDelete = require('../');
 
-schema.plugin(archive);
+schema.plugin(softDelete);
 
 module.exports = mongoose.model('test', schema);
